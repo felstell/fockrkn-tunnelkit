@@ -21,8 +21,12 @@ open class WireGuardTunnelProvider: NEPacketTunnelProvider {
     }()
 
     open override func startTunnel(options: [String: NSObject]?, completionHandler: @escaping (Error?) -> Void) {
-
+        
         // BEGIN: TunnelKit
+        
+        #if os(macOS)
+        NEProvider.startSystemExtensionMode()
+        #endif
 
         guard let tunnelProviderProtocol = protocolConfiguration as? NETunnelProviderProtocol else {
             fatalError("Not a NETunnelProviderProtocol")
@@ -39,10 +43,6 @@ open class WireGuardTunnelProvider: NEPacketTunnelProvider {
             completionHandler(WireGuardProviderError.savedProtocolConfigurationIsInvalid)
             return
         }
-        
-        #if os(macOS)
-        NEProvider.startSystemExtensionMode()
-        #endif
 
         configureLogging()
 
