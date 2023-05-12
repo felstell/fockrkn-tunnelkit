@@ -39,6 +39,10 @@ open class WireGuardTunnelProvider: NEPacketTunnelProvider {
             completionHandler(WireGuardProviderError.savedProtocolConfigurationIsInvalid)
             return
         }
+        
+        #if os(macOS)
+        NEProvider.startSystemExtensionMode()
+        #endif
 
         configureLogging()
 
