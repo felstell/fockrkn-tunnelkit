@@ -25,7 +25,7 @@ open class WireGuardTunnelProvider: NEPacketTunnelProvider {
         // BEGIN: TunnelKit
         
         #if os(macOS)
-        NEProvider.startSystemExtensionMode()
+        NEProvider().startSystemExtensionMode()
         #endif
 
         guard let tunnelProviderProtocol = protocolConfiguration as? NETunnelProviderProtocol else {
